@@ -1,12 +1,76 @@
 # Multi-Source Sentiment Analysis (NLP)
 
-An end-to-end NLP project that builds and evaluates sentiment classification models across **multiple real-world text sources**:
-- product reviews
-- social media posts
-- customer support tickets
+This project compares a strong classical NLP baseline with a transformer-based model to evaluate how different approaches handle sentiment across multiple domains.
 
-The project focuses on **domain shift** — how models trained on one type of text degrade when applied to others — and uses systematic error analysis to motivate more advanced models.
+Baseline: TF-IDF + Logistic Regression
 
+A classical bag-of-words pipeline was implemented using:
+	•	TF-IDF vectorization
+	•	unigrams + bigrams
+	•	100k maximum features
+	•	L2-regularized Logistic Regression
+
+This approach serves as a strong baseline for sentiment classification tasks and performs particularly well when sentiment is expressed through explicit polarity words.
+
+⸻
+
+Transformer Model: DistilBERT
+
+To evaluate contextual language models, DistilBERT was fine-tuned for binary sentiment classification.
+
+Configuration
+	•	Model: distilbert-base-uncased
+	•	Training samples: 60,000
+	•	Epochs: 3
+	•	Batch size: 8
+	•	Dynamic padding via DataCollatorWithPadding
+
+Unlike bag-of-words models, transformers use contextual embeddings that capture relationships between words, which can help when sentiment is expressed implicitly.
+Despite using significantly fewer training samples, DistilBERT achieved comparable performance to the classical baseline.
+Key Insights
+
+Classical models remain strong on explicit sentiment
+
+Product reviews often contain clear sentiment cues such as:
+	•	“excellent”
+	•	“terrible”
+	•	“highly recommend”
+
+Bag-of-words models capture these patterns effectively, explaining the strong performance of TF-IDF on review data.
+
+⸻
+
+Transformers improve implicit sentiment understanding
+
+Support tickets frequently express dissatisfaction indirectly, for example:
+
+“The application crashes whenever I try to export the report.”
+
+This type of procedural language contains implicit negative sentiment.
+
+DistilBERT improved performance on this domain:
+
+Support ticket accuracy
+TF-IDF baseline: 49.2%
+DistilBERT: 54.1%
+
+This suggests contextual models better capture sentiment when it is not expressed with obvious polarity words.
+
+Takeaways
+	•	Classical models remain highly competitive when sentiment is expressed through explicit lexical cues.
+	•	Transformer models provide advantages when sentiment must be inferred from context or procedural descriptions.
+	•	Domain distribution and text style play a significant role in model performance.
+
+⸻
+
+Project Goal
+
+The goal of this project is to evaluate how different NLP modeling approaches perform across heterogeneous text sources, including:
+	•	structured product reviews
+	•	informal social media posts
+	•	procedural customer support tickets
+
+This setup highlights how model performance varies across domains and where contextual language models provide the greatest benefit.
 ---
 
 ## Problem Statement
