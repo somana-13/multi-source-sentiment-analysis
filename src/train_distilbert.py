@@ -79,7 +79,7 @@ def main():
         learning_rate=2e-5,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=16,
-        num_train_epochs=3,
+        num_train_epochs=1,
         weight_decay=0.01,
         load_best_model_at_end=True,
         report_to="none"
@@ -104,6 +104,24 @@ def main():
     print("\nFinal evaluation metrics:")
     print(metrics)
 
+    
+    # --- Per-source evaluation ---
+    print("\n=== Per-Source Accuracy ===")
+
+    # Get predictions on validation set
+    preds_output = trainer.predict(val_dataset)
+
+    logits = preds_output.predictions
+    preds = np.argmax(logits, axis=-1)
+
+    # Attach predictions to validation dataframe
+    val_df = val_df.copy()
+    val_df["pred"] = preds
+
+    for src in val_df["source"].unique():
+        sub = val_df[val_df["source"] == src]
+        acc = (sub["label"] == sub["pred"]).mean()
+        print(f"{src:8s} | n={len(sub):5d} | acc={acc:.4f}")
 
 if __name__ == "__main__":
     main()

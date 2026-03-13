@@ -96,7 +96,12 @@ However, error analysis reveals:
 This motivates the use of **contextual transformer models**.
 
 ---
+DistilBERT (sample=60k, epochs=3)
 
+Accuracy: 0.8097
+F1: 0.8136
+
+---
 ## How to Run
 
 ```bash
