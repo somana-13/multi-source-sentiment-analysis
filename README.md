@@ -72,7 +72,37 @@ The goal of this project is to evaluate how different NLP modeling approaches pe
 
 This setup highlights how model performance varies across domains and where contextual language models provide the greatest benefit.
 ---
+Project pipeline
 
+Raw Datasets
+   │
+   ├── Amazon Reviews
+   ├── Sentiment140 Tweets
+   └── Customer Support Tickets
+   │
+   ▼
+Schema Normalization
+   │
+   ▼
+Text Preprocessing
+   - tokenization
+   - lemmatization
+   - stopword removal
+   │
+   ▼
+Unified Dataset
+(text, label, source)
+   │
+   ▼
+Modeling
+   ├── TF-IDF + Logistic Regression
+   └── DistilBERT Transformer
+   │
+   ▼
+Evaluation
+   - overall accuracy
+   - per-source performance
+   
 ## Problem Statement
 
 Sentiment analysis models often perform well on a single dataset (e.g., Amazon reviews) but fail when deployed on different text distributions such as support tickets or social media.

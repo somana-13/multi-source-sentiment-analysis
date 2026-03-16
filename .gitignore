@@ -18,3 +18,9 @@ data/processed/*.csv
 
 # Notebooks checkpoints
 .ipynb_checkpoints/
+
+# training outputs
+distilbert-sentiment-output/
+
+# random local files
+.Rhistory
